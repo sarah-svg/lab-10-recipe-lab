@@ -4,7 +4,8 @@ DROP TABLE IF EXISTS logs;
 CREATE TABLE recipes (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   name TEXT NOT NULL,
-  directions TEXT[]
+  directions TEXT[],
+  ingredients JSONB[]
 );
   
 
@@ -19,10 +20,10 @@ CREATE TABLE recipes (
 -- )
 CREATE TABLE logs (
   id BIGINT GENERATED ALWAYS AS IDENTITY,
-  date_of_event  DATE NOT NULL,
-  notes TEXT NOT NULL, 
-  rating INT CONSTRAINT rating CHECK (rating >= 0 AND rating <= 5),
-  recipe_id BIGINT NOT NULL REFERENCES recipes(id)
+  date_of_event TEXT NOT NULL,
+  notes TEXT NOT NULL,
+  rating BIGINT NOT NULL,
+  recipe_id BIGINT REFERENCES recipes(id)
 );
 -- Our model is incomplete.
 --  In order to provide a better user 

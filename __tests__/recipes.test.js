@@ -73,21 +73,21 @@ describe('recipe-lab routes', () => {
       {
         dateOfEvent: '2020-12-10',
         notes: 'hey',
-        rating: 2,
+        rating: '2',
         recipeId: recipe.id,
  
       },
       {
         dateOfEvent: '2020-12-10',
         notes: 'hey',
-        rating: 2,
+        rating: '2',
         recipeId: recipe.id,
  
       },
       {
         dateOfEvent: '2020-12-10',
         notes: 'hey',
-        rating: 2,
+        rating: '2',
         recipeId: recipe.id,
  
       },
@@ -125,7 +125,8 @@ describe('recipe-lab routes', () => {
         recipeId: recipe.id,
  
       }
-    ]) });
+    ])
+    });
   });
 
 
