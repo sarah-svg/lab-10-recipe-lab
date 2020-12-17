@@ -4,7 +4,7 @@ const request = require('supertest');
 const app = require('../lib/app');
 const Recipe = require('../lib/models/recipe');
 const Log = require('../lib/models/logs');
-const { DH_NOT_SUITABLE_GENERATOR } = require('constants');
+
 
 describe('recipe-lab routes', () => {
   // beforeEach(() => {
@@ -61,13 +61,13 @@ describe('recipe-lab routes', () => {
             'put dough on cookie sheet',
             'bake for 10 minutes'
           ],
-        ingredients: [
-          {
-            name: 'flour',
-            measurement: 'cup',
-            amount: 2
-          }
-        ]
+          ingredients: [
+            {
+              name: 'flour',
+              measurement: 'cup',
+              amount: 2
+            }
+          ]
         });
       });
   });
@@ -111,7 +111,7 @@ describe('recipe-lab routes', () => {
     const response = await request(app)
       .get(`/api/v1/recipes/${recipe.id}`);
 
-    // const recipe = await Recipe.insert({ name: 'cookies', directions: [] });
+    
 
 
 
@@ -163,39 +163,65 @@ describe('recipe-lab routes', () => {
 
   it('updates a recipe by id', async() => {
     const recipe = await Recipe.insert({
-      name: 'cookies',
+      name: 'cookies', 
+      ingredients: [
+        {
+          name: 'flour',
+          measurement: 'cup',
+          amount: 2
+        }
+      ],
       directions: [
         'preheat oven to 375',
         'mix ingredients',
         'put dough on cookie sheet',
         'bake for 10 minutes'
-      ],
+      ],     
+   
     });
 
     return request(app)
       .put(`/api/v1/recipes/${recipe.id}`)
       .send({
-        name: 'good cookies',
+        name: 'good cookies',   
+        
+        ingredients: [
+          {
+            name: 'flour',
+            measurement: 'cup',
+            amount: 3
+          }
+        ],
         directions: [
           'preheat oven to 375',
           'mix ingredients',
           'put dough on cookie sheet',
           'bake for 10 minutes'
         ]
+    
       })
       .then(res => {
         expect(res.body).toEqual({
           id: expect.any(String),
-          name: 'good cookies',
+          name: 'good cookies',     
+          ingredients: [
+            {
+              name: 'flour',
+              measurement: 'cup',
+              amount: 3
+            }
+          ],
           directions: [
             'preheat oven to 375',
             'mix ingredients',
             'put dough on cookie sheet',
             'bake for 10 minutes'
           ]
+
         });
       });
   });
+
   it('DELETES recipe by id', async() => {
     const recipe = await Recipe.insert({
       name: 'good cookies',
@@ -205,6 +231,13 @@ describe('recipe-lab routes', () => {
         'put dough on cookie sheet',
         'bake for 10 minutes'
       ],
+      ingredients: [
+        {
+          name: 'flour',
+          measurement: 'cup',
+          amount: 2
+        }
+      ]
     });
     
     const response = await request(app)
