@@ -4,6 +4,7 @@ const request = require('supertest');
 const app = require('../lib/app');
 const Recipe = require('../lib/models/recipe');
 const Log = require('../lib/models/logs');
+const { DH_NOT_SUITABLE_GENERATOR } = require('constants');
 
 describe('recipe-lab routes', () => {
   // beforeEach(() => {
@@ -41,6 +42,13 @@ describe('recipe-lab routes', () => {
           'mix ingredients',
           'put dough on cookie sheet',
           'bake for 10 minutes'
+        ],
+        ingredients: [
+          {
+            name: 'flour',
+            measurement: 'cup',
+            amount: 2
+          }
         ]
       })
       .then(res => {
@@ -52,7 +60,14 @@ describe('recipe-lab routes', () => {
             'mix ingredients',
             'put dough on cookie sheet',
             'bake for 10 minutes'
-          ]
+          ],
+        ingredients: [
+          {
+            name: 'flour',
+            measurement: 'cup',
+            amount: 2
+          }
+        ]
         });
       });
   });
